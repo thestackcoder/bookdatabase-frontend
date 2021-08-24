@@ -50,7 +50,7 @@
               depressed
               color="error"
               small
-              class="ml-2"
+              class="ml-2"  
               @click="deleteBook(1)"
             >Delete
             </v-btn>
