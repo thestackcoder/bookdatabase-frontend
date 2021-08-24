@@ -1,18 +1,27 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="ma-10">
+  <h1>BookShelf Database</h1>
+  <v-form
+    ref="form"
+    v-model="valid"
+    lazy-validation
+    class="mt-6"
+  >
+    <v-text-field
+      v-model="name"
+      :rules="nameRules"
+      label="Search"
+      required
+    ></v-text-field>
+
+    <v-btn
+      color="success"
+      class="mr-4"
+      @click="search"
+    >
+      Search
+    </v-btn>
+
+  </v-form>
   </div>
 </template>
-
-<script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
-export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
-}
-</script>
