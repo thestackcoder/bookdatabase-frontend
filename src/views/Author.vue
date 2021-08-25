@@ -5,6 +5,7 @@
   color="primary"
   right
   relative
+  to="/add-author"
   >
     Add Author
   </v-btn>
@@ -31,18 +32,12 @@
           <td>{{ item.first_name }}</td>
           <td>{{ item.last_name }}</td>
           <td>
-            <v-btn
-              depressed
-              color="primary"
-              small
-            >
-              Edit
-            </v-btn>
+            
             <v-btn
               depressed
               color="error"
               small
-              class="ml-2"
+              @click="deleteAuthor(item.id)"
             >Delete
             </v-btn>
           </td>
@@ -55,6 +50,7 @@
 
 
 <script>
+  import axios from 'axios';
   export default {
 
     data: () => ({
@@ -75,6 +71,7 @@
               if (!response.ok) {
                   throw new Error(response.error)
               }
+              console.log(response);
               return response.json();
           })
           .then(data => {
@@ -87,11 +84,24 @@
           console.log(error);
         }
       },
+
+      deleteAuthor(author_id) {
+        const url = "http://localhost:8000/authors/"+author_id+"/";
+        var headers = {}
+        try {
+            axios.delete(url)
+            .then(response => {
+                confirm("Are you sure?");
+                location.reload();
+            });
+        } catch (error) {
+          console.log(error);
+        }
+      },
     },
     
     created() {
       this.getData();
     },
-    
   }
 </script>

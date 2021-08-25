@@ -5,6 +5,7 @@
   color="primary"
   right
   relative
+  to="/add-book"
   >
     Add Book
   </v-btn>
@@ -35,23 +36,15 @@
           :key="item.title"
         >
           <td>{{ item.title }}</td>
-          <td>{{ item.author }}</td>
-          <td>{{ item.topic }}</td>
-          <td>{{ item.storage }}</td>
+          <td>{{ item.author_firstname }}</td>
+          <td>{{ item.topic_name }}</td>
+          <td>{{ item.storage_name }}</td>
           <td>
-            <v-btn
-              depressed
-              color="primary"
-              small
-            >
-              Edit
-            </v-btn>
             <v-btn
               depressed
               color="error"
               small
-              class="ml-2"  
-              @click="deleteBook(1)"
+              @click="deleteBook(item.id)"
             >Delete
             </v-btn>
           </td>
@@ -64,6 +57,7 @@
 
 
 <script>
+  import axios from 'axios';
   export default {
 
     data: () => ({
@@ -101,23 +95,11 @@
         const url = "http://localhost:8000/books/"+book_id+"/";
         var headers = {}
         try {
-          fetch(url, {
-              method : "DELETE",
-              mode: 'cors',
-              headers: headers
-          })
-          .then((response) => {
-              if (!response.ok) {
-                  throw new Error(response.error)
-              }
-              return response.json();
-          })
-          .then(data => {
-              this.books = data;
-          })
-          .catch(function(error) {
-              console.log(error);
-          });
+          axios.delete(url)
+            .then(response => {
+                confirm("Are you sure?");
+                location.reload();
+            });
         } catch (error) {
           console.log(error);
         }

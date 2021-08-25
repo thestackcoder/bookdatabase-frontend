@@ -5,6 +5,7 @@
   color="primary"
   right
   relative
+  to="/add-storage"
   >
     Add Storage
   </v-btn>
@@ -26,23 +27,16 @@
       <tbody>
         <tr
           v-for="item in storages   "
-          :key="item.name"
+          :key="item.id"
         >
           <td>{{ item.name }}</td>
           <td>{{ item.storage_type }}</td>
           <td>
             <v-btn
               depressed
-              color="primary"
-              small
-            >
-              Edit
-            </v-btn>
-            <v-btn
-              depressed
               color="error"
               small
-              class="ml-2"
+              @click="deleteStorage(item.id)"
             >Delete
             </v-btn>
           </td>
@@ -55,6 +49,7 @@
 
 
 <script>
+  import axios from 'axios';
   export default {
 
     data: () => ({
@@ -83,6 +78,19 @@
           .catch(function(error) {
               console.log(error);
           });
+        } catch (error) {
+          console.log(error);
+        }
+      },
+
+      deleteStorage(storage_id) {
+        const url = "http://localhost:8000/storages/"+storage_id+"/";
+        try {
+          axios.delete(url)
+            .then(response => {
+                confirm("Are you sure?");
+                location.reload();
+            });
         } catch (error) {
           console.log(error);
         }

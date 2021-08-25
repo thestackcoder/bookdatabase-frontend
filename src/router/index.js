@@ -32,6 +32,26 @@ const routes = [
     path: '/storages',
     name: 'Storage',
     component: () => import('../views/Storage.vue')
+  },
+  {
+    path: '/add-topic',
+    name: 'AddTopic',
+    component: () => import('../views/AddTopic.vue')
+  },
+  {
+    path: '/add-author',
+    name: 'AddAuthor',
+    component: () => import('../views/AddAuthor.vue')
+  },
+  {
+    path: '/add-storage',
+    name: 'AddStorage',
+    component: () => import('../views/AddStorage.vue')
+  },
+  {
+    path: '/add-book',
+    name: 'AddBook',
+    component: () => import('../views/AddBook.vue')
   }
 ]
 
